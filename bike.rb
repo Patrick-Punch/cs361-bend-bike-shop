@@ -1,5 +1,5 @@
 # Bike
-
+# Patrick Punch
 class Bike
 
   STANDARD_WEIGHT = 200 # lbs
@@ -17,23 +17,29 @@ class Bike
   end
 
   def rent!
-    self.rented = true
+    @rented = true
   end
 
   def add_cargo(item)
-    self.cargo_contents << item
+    check_pannier
+    @cargo_contents << item
   end
 
   def remove_cargo(item)
-    self.cargo_contents.remove(item)
-  end
-
-  def pannier_capacity
-    MAX_CARGO_ITEMS
+    @cargo_contents.remove(item)
   end
 
   def pannier_remaining_capacity
-    MAX_CARGO_ITEMS - self.cargo_contents.size
+    MAX_CARGO_ITEMS - cargo_contents.size
   end
 
+  def check_pannier
+    if @cargo_contents.size == MAX_CARGO_ITEMS
+      raise "Cargo is full!"
+    end
+  end
+
+  def cargo_message
+    puts "Space for #{pannier_remaining_capacity} items left."
+  end
 end
